@@ -1,7 +1,7 @@
 $ErrorActionPreference = "SilentlyContinue"
 
 # LOGGING INITIALISATION
-$logSource = "Oaklands SIMS Deployment"
+$logSource = "SIMS Deployment"
 if (![System.Diagnostics.EventLog]::SourceExists($logSource)){
         new-eventlog -LogName Application -Source $logSource
 }
