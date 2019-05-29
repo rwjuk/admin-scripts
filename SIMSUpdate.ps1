@@ -1,7 +1,7 @@
-﻿$ErrorActionPreference = "SilentlyContinue"
+$ErrorActionPreference = "SilentlyContinue"
 
 # LOGGING INITIALISATION
-
+$logSource = "Oaklands SIMS Deployment"
 if (![System.Diagnostics.EventLog]::SourceExists($logSource)){
         new-eventlog -LogName Application -Source $logSource
 }
@@ -10,12 +10,11 @@ if (![System.Diagnostics.EventLog]::SourceExists($logSource)){
 
 # CONFIGURATION VARIABLES
 
-$installationSource = "SOURCE SIMS FILES"  # CHANGEME
-$connectIniSource = "CONNECT.INI SOURCE"  # CHANGEME
-$simsIniSource = "SIMS.INI SOURCE"  # CHANGEME
-$destinationPath = "C:\Program Files\SIMS\SIMS .net"  # Change this if you want it in Program Files (x86)
+$installationSource = "\\SERVER\installers\Capita\SIMS\Core installation"
+$connectIniSource = "\\SERVER\installers\Capita\SIMS\Other files\connect.ini"
+$simsIniSource = "\\SERVER\installers\Capita\SIMS\Other files\sims.ini"
+$destinationPath = "C:\Program Files (x86)\SIMS\SIMS .net"
 $regAsmPath = "C:\Windows\MICROS~1.NET\FRAMEW~1\V40~1.303\RegAsm.exe"
-$logSource = "SIMS Deployment"
 $installedVersion = (Get-Command "$destinationPath\Pulsar.exe").FileVersionInfo.FileVersion
 
 try{
@@ -47,7 +46,7 @@ if ($targetVersion -ne $installedVersion){
         write-eventlog -LogName Application -Source $logSource -EntryType Information -EventId 2 -Message "Existing SIMS.net installation removed"
     }
 
-    Copy-Item "$installationSource\*" $destinationPath -recurse -force
+    Copy-Item "$installationSource\*" $destinationPath -recurse
     write-eventlog -LogName Application -Source $logSource -EntryType Information -EventId 3 -Message "New SIMS.net files copied"
 
     Copy-Item $simsIniSource "C:\WINDOWS\"
