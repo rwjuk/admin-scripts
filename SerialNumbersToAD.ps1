@@ -2,6 +2,8 @@
 # "computerModel", "computerManufacturer", "monitorSerialNumbers", and "monitorManufacturer" are custom AD attributes
 # that you will need to add to your schema if you want to use this script as-is
 
+# Get DumpEDID from here: https://www.nirsoft.net/utils/dump_edid.html
+
 $getEDIDPath = "\\SERVER\path\DumpEDID.exe"
 
 # Monitor info
